@@ -1,6 +1,13 @@
+import Header from "./Header";
+import Products from "./Products";
+
 function App() {
-  <div>
-    <Header />
-    <Products />
-  </div>;
+  return (
+    <div>
+      <Header />
+      <Products />
+    </div>
+  );
 }
+
+export default App;

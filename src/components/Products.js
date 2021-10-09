@@ -1,10 +1,15 @@
+import Product from "./Product";
+
 function Products() {
-  <section className="products">
-    <Product />
-    <Product />
-    <Product />
-    <Product />
-    <Product />
-    <Product />
-  </section>;
+  return (
+    <section className="products">
+      <Product />
+      <Product />
+      <Product />
+      <Product />
+      <Product />
+    </section>
+  );
 }
+
+export default Products;
