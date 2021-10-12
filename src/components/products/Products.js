@@ -1,14 +1,18 @@
 import Product from "../Product/Product";
-import "./products.css";
+import "./Products.css";
 
-function Products() {
+function Products({ listOBJ }) {
   return (
     <section className="products">
-      <Product />
-      <Product />
-      <Product />
-      <Product />
-      <Product />
+      {listOBJ.map((item) => (
+        <Product
+          key={item.id}
+          title={item.title}
+          price={item.price}
+          image={item.image}
+        />
+      ))}
+      );
     </section>
   );
 }
