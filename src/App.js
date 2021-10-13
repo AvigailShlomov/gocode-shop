@@ -2,7 +2,7 @@
 import "./App.css";
 import Header from "./components/Header/Header";
 import Products from "./components/Products/Products";
-import StrDisplayBtn from "./components/StrDisplayBtn";
+import StrDisplayBtn from "./components/StrDisplayBtn/StrDisplayBtn";
 
 function App() {
   const listOfDtails = [
@@ -273,6 +273,10 @@ function App() {
       },
     },
   ];
+  // const categories = listOfDtails
+  //   .map((p) => p.category)
+  //   .filter((value, index, array) => array.indexOf(value) === index);
+
   return (
     <div className="App">
       <Header />
