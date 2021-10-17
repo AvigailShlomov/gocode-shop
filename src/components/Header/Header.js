@@ -1,6 +1,7 @@
 import "./header.css";
-
-function Header() {
+//let val = "";
+function Header({ categoriesList, onCategory }) {
+  console.log({ categoriesList });
   return (
     <nav className="product-filter">
       <h1>Jackets</h1>
@@ -8,15 +9,13 @@ function Header() {
       <div className="sort">
         <div className="collection-sort">
           <label>Filter by:</label>
-          <select>
-            <option>All Jackets</option>
-            <option value="/">2016</option>
-            <option value="/">jacket</option>
-            <option value="/">Jackets</option>
-            <option value="/">layers</option>
-            <option value="/">Obermeyer</option>
-            <option value="/">Roxy</option>
-            <option value="/">womens</option>
+          <select onChange={(e) => onCategory(e.target.value)}>
+            <option value="select category">Select your category</option>
+            {categoriesList.map((value1, index) => (
+              <option value={value1} key={index}>
+                {value1}
+              </option>
+            ))}
           </select>
         </div>
 
@@ -39,3 +38,4 @@ function Header() {
 }
 
 export default Header;
+// onChange={() => onCategory(this.value)}

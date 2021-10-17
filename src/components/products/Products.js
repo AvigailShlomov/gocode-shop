@@ -10,6 +10,7 @@ function Products({ listOBJ }) {
           title={item.title}
           price={item.price}
           image={item.image}
+          category={item.category}
         />
       ))}
       );
