@@ -1,14 +1,19 @@
 //import logo from "./logo.svg";
 import { useEffect, useState } from "react";
 import "./App.css";
+import Cart from "./components/Cart/Cart";
 import Header from "./components/Header/Header";
 import Products from "./components/Products/Products";
+import MyContext from "./MyContext";
 // import StrDisplayBtn from "./components/StrDisplayBtn/StrDisplayBtn";
 
 function App() {
   const [productsDetails, setProductsDetails] = useState([]);
+  const [tempProductsDetails, setTempProductsDetails] = useState([]);
+  const [productCart, setProductCart] = useState([]); //global
 
   const url = "https://fakestoreapi.com/products";
+
   useEffect(() => {
     fetch(url)
       .then((res) => {
@@ -19,8 +24,6 @@ function App() {
         setTempProductsDetails(products);
       });
   }, []);
-
-  const [tempProductsDetails, setTempProductsDetails] = useState([]);
 
   const onFilter = (categorySelected) => {
     setTempProductsDetails(
@@ -33,11 +36,14 @@ function App() {
     .filter((value, index, array) => array.indexOf(value) === index);
 
   return (
-    <div className="App">
-      <Header categoriesList={categories} onCategory={onFilter} />
-      {/* <StrDisplayBtn /> */}
-      <Products listOBJ={tempProductsDetails} />
-    </div>
+    <MyContext.Provider value={[productCart, setProductCart]}>
+      <div className="App">
+        <Header categoriesList={categories} onCategory={onFilter} />
+        <Cart />
+        {/* <StrDisplayBtn /> */}
+        <Products listOBJ={tempProductsDetails} />
+      </div>
+    </MyContext.Provider>
   );
 }
 
