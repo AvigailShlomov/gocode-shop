@@ -1,6 +1,6 @@
 import { useContext /*, useState*/ } from "react";
 import MyContext from "../../MyContext";
-import ProductCart from "../ProductCart";
+// import ProductCart from "../ProductCart";
 import "./Product.css";
 
 function Product({ key, id, title, price, category, image }) {
