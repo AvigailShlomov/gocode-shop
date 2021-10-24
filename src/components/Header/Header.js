@@ -7,12 +7,15 @@ function valuetext(value) {
   return `${value}`;
 }
 
-function Header({ categoriesList, onCategory }) {
-  const [value, setValue] = React.useState([1, 100]);
+function Header({ categoriesList, onCategory, onPrice }) {
+  const [value, setValue] = React.useState([1, 1000]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    console.log("kkkkkkk", newValue);
+    onPrice(value[0], value[1]);
   };
+  console.log("jjjjjjjjjjjj", value[0], value[1]);
 
   console.log({ categoriesList });
   return (
@@ -23,7 +26,7 @@ function Header({ categoriesList, onCategory }) {
         <div className="collection-sort">
           <label>Filter by:</label>
           <select onChange={(e) => onCategory(e.target.value)}>
-            <option value="select category">Select your category</option>
+            <option value="All">Select your category</option>
             {categoriesList.map((value1, index) => (
               <option value={value1} key={index}>
                 {value1}
@@ -31,15 +34,16 @@ function Header({ categoriesList, onCategory }) {
             ))}
           </select>
         </div>
+
         <Box sx={{ width: 120, margin: 2 }}>
           <Slider
             getAriaLabel={() => "Temperature range"}
-            // min="1"
-            // max="1000"
             value={value}
             onChange={handleChange}
             valueLabelDisplay="auto"
             getAriaValueText={valuetext}
+            min={0}
+            max={1000}
           />
         </Box>
 

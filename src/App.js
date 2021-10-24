@@ -1,49 +1,37 @@
-//import logo from "./logo.svg";
-import { useEffect, useState } from "react";
-import "./App.css";
-import Cart from "./components/Cart/Cart";
-import Header from "./components/Header/Header";
-import Products from "./components/Products/Products";
+import { useState } from "react";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import MyContext from "./MyContext";
-// import StrDisplayBtn from "./components/StrDisplayBtn/StrDisplayBtn";
+import Home from "./views/Home";
+import ProductDetails from "./views/ProductDetails";
 
 function App() {
-  const [productsDetails, setProductsDetails] = useState([]);
-  const [tempProductsDetails, setTempProductsDetails] = useState([]);
-  const [productCart, setProductCart] = useState([]); //global
-
-  const url = "https://fakestoreapi.com/products";
-
-  useEffect(() => {
-    fetch(url)
-      .then((res) => {
-        return res.json();
-      })
-      .then((products) => {
-        setProductsDetails(products);
-        setTempProductsDetails(products);
-      });
-  }, []);
-
-  const onFilter = (categorySelected) => {
-    setTempProductsDetails(
-      productsDetails.filter((x) => x.category === categorySelected)
-    );
-  };
-
-  const categories = productsDetails
-    .map((p) => p.category)
-    .filter((value, index, array) => array.indexOf(value) === index);
-
+  const [productCart, setProductCart] = useState([]); //Global
   return (
-    <MyContext.Provider value={[productCart, setProductCart]}>
-      <div className="App">
-        <Header categoriesList={categories} onCategory={onFilter} />
-        <Cart />
-        {/* <StrDisplayBtn /> */}
-        <Products listOBJ={tempProductsDetails} />
-      </div>
-    </MyContext.Provider>
+    <Router>
+      <MyContext.Provider value={[productCart, setProductCart]}>
+        <div>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/Products">Products</Link>
+              </li>
+            </ul>
+          </nav>
+
+          <Switch>
+            <Route path="/Products/:id">
+              <ProductDetails />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+        </div>
+      </MyContext.Provider>
+    </Router>
   );
 }
 
