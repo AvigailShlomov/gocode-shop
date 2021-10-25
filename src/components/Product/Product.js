@@ -48,17 +48,17 @@ function Product({ key, id, title, price, category, image }) {
   return (
     <div className="product-card">
       <Link to={`/Products/${id}`}>
-        <div>
-          <div className="product-image">
-            <img src={image} alt="sweater img" />
-          </div>
+        <div className="product-image">
+          <img src={image} alt="sweater img" />
           <div className="product-info">
             <h5>{title}</h5>
-            <h6>{category}</h6>
-            <h6>{price}$</h6>
           </div>
         </div>
       </Link>
+      <div className="product-info">
+        <h6>{category}</h6>
+        <h6>{price}$</h6>
+      </div>
 
       <div>
         <button
