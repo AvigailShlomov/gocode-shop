@@ -12,7 +12,7 @@ function Home() {
   const [productsCategory, setProductsCategory] = useState([]);
   const [productsPrice, setProductsPrice] = useState([]);
 
-  const url = "https://fakestoreapi.com/products";
+  const url = "/api/products";
 
   useEffect(() => {
     fetch(url)
