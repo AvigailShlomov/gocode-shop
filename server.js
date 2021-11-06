@@ -28,7 +28,6 @@ app.get("/api/products", function (req, res) {
 });
 
 // /*read product by specific prams: ':id' 8.3 */
-/**hu */
 
 // app.get("/api/products/:id", function (req, res) {
 //   const { id } = req.params;
