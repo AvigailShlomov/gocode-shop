@@ -3,24 +3,24 @@ import { useParams } from "react-router";
 import Product from "../components/Product/Product";
 // import MyContext from "../MyContext";
 function ProductDetails() {
-  const { id } = useParams();
+  const { id: _id } = useParams();
   const [product, setProduct] = useState({});
   //   const url = `https://fakestoreapi.com/products/${id}`;
   useEffect(() => {
-    fetch(`/api/products/${id}`)
+    fetch(`/api/products/${_id}`)
       .then((res) => res.json())
       .then((product) => {
         setProduct(product);
       });
-  }, [id]);
+  }, [_id]);
   return (
     // <div>
     //   Product details: ID: {id}, title: {product?.title} ,image:{product?.image}
     // </div>
     <>
       <Product
-        key={id}
-        id={id}
+        key={_id}
+        id={_id}
         title={product?.title}
         price={product?.price}
         image={product?.image}

@@ -9,8 +9,8 @@ function Cart() {
     <div>
       {productCart.map((item) => (
         <ProductCart
-          key={item.id}
-          id={item.id}
+          key={item._id}
+          id={item._id}
           title={item.title}
           price={item.price}
           image={item.image}

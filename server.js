@@ -9,142 +9,119 @@ const port = process.env.PORT || 5000;
 app.use(express.json()); //middleware for post- parser our req body
 app.use(express.static("client/build"));
 
-const ProductSchema = new mongoose.Schema({
-  id: Number,
+const productSchema = new mongoose.Schema({
   title: String,
+  price: Number,
   description: String,
   category: String,
   image: String,
 });
 
-const Product = mongoose.model("Product", ProductSchema); //class-collection
+const Product = mongoose.model("Product", productSchema); //class-collection
+//=>name of the collection will be: products
 
-/*read/receive all the data 8.1*/
+/*get/show all products- DONE 1*/
 app.get("/api/products", function (req, res) {
-  fs.readFile("./products.json", "utf-8", (err, data) => {
-    const products = JSON.parse(data);
+  const { title } = req.query;
+  console.log(title);
+  Product.find((err, products) => {
+    if (title) {
+      products = products.filter((product) =>
+        product.title.toLowerCase().includes(title.toLowerCase())
+      );
+    }
     res.send(products);
   });
 });
 
-// /*read product by specific prams: ':id' 8.3 */
+// /*read product by specific prams: ':id' -DONE 2*/
+app.get("/api/products/:id", function (req, res) {
+  const { id } = req.params;
+  Product.findById(id, (err, product) => res.send(product));
+});
 
-// app.get("/api/products/:id", function (req, res) {
-//   const { id } = req.params;
-//   fs.readFile("./products.json", "utf-8", (err, data) => {
-//     const products = JSON.parse(data);
-//     const product = products.find((prdt) => prdt.id === +id);
-//     res.send(product);
-//   });
-// });
-
-// /*get by a string 8.2 */
-// app.get("/api/products", function (req, res) {
-//   const { title } = req.query;
-//   console.log(title);
-//   fs.readFile("./products.json", "utf-8", (err, data) => {
-//     const products = JSON.parse(data);
-//     if (title) {
-//       const x = products.filter((product) =>
-//         product.title.toLowerCase().includes(title.toLowerCase())
-//       );
-//       res.send(x);
-//     }
-//     res.send("Nothing found");
-//   });
-// });
-
-// /*slider*/
-app.get("/api/products", function (req, res) {
-  const { min, max } = req.query;
-  console.log(min, max);
-  fs.readFile("./products.json", "utf-8", (err, data) => {
-    const products = JSON.parse(data);
-
-    if (min && max) {
-      const x = products.filter(
-        (product) => product.price >= min && product.price <= max
-      );
-      res.send(x);
+//get by category -DONE
+app.get("/api/products/:category", (req, res) => {
+  const { category } = req.params;
+  console.log(category);
+  Product.find((err, products) => {
+    if (category) {
+      products = products.filter((product) => product.category === category);
     }
+    res.send(products);
   });
 });
 
-//add new product 8.4
+//add new product DONE 3
 app.post("/api/products/addProduct", (req, res) => {
-  const { title, price, description, category, image, rating, rate, count } =
-    req.body;
-  Product.save(
+  console.log("hi post");
+  const { title, price, description, category, image } = req.body;
+  const product = new Product({
+    title,
+    price,
+    description,
+    category,
+    image,
+  });
+  console.log("kok");
+  product.save(
     { title, price, description, category, image },
+    (err, product) => {
+      console.log(err);
+      res.send(product);
+    }
+  );
+});
+
+//change DONE
+app.patch("/api/products/:id", (req, res) => {
+  const { id } = req.params;
+  const { title, price, category, description, image } = req.body;
+
+  Product.findByIdAndUpdate(
+    id,
+    { title, price, category, description, image },
+    { new: true },
     (err, product) => {
       res.send(product);
     }
   );
-
-  // const product = new Product({ title, price, description, category, image });
-  // product.save((err, product) => {
-  //   res.send(product);
-  // });
-  // fs.readFile("./products.json", "utf-8", (err, data) => {
-  //   const products = JSON.parse(data);
-  //   products.push({
-  //     id: products.length + 1,
-  //     title,
-  //     price,
-  //     description,
-  //     category,
-  //     image,
-  //     rating,
-  //     rate,
-  //     count,
-  //   });
-  //   fs.writeFile("./products.json", JSON.stringify(products), (err) => {
-  //     res.send(products);
-  //   });
-  // });
 });
 
-//change price 8.5
-app.put("/api/products/:id", (req, res) => {
+// Delete- DONE
+app.delete("/api/products/:id", (req, res) => {
   const { id } = req.params;
-  const { price } = req.body;
-  fs.readFile("./products.json", "utf-8", (err, data) => {
-    const products = JSON.parse(data);
-    const productIndex = products.findIndex((product) => product.id === +id);
-    products[productIndex].price = price;
-    fs.writeFile("./products.json", JSON.stringify(products), (err) => {
-      if (err) {
-        res.send("ERROR!! Request not valid");
-      }
-      res.send(products[productIndex]);
-    });
-  });
+  Product.findOneAndDelete(id, (err, product) => res.send(product));
 });
 
-// // delete a product 8.6
-// app.delete("/api/products/:id", (req, res) => {
-//   const { id } = req.params;
+// /*slider*/
+// app.get("/api/products", function (req, res) {
+//   const { min, max } = req.query;
+//   console.log(min, max);
 //   fs.readFile("./products.json", "utf-8", (err, data) => {
 //     const products = JSON.parse(data);
-//     const productIndex = products.findIndex((product) => product.id === +id);
-//     products.splice(productIndex, 1);
-//     fs.writeFile("./products.json", JSON.stringify(products), (err) => {
-//       if (err) {
-//         res.send("ERROR!! Request not valid");
-//       }
-//       res.send(products);
-//     });
+
+//     if (min && max) {
+//       const x = products.filter(
+//         (product) => product.price >= min && product.price <= max
+//       );
+//       res.send(x);
+//     }
 //   });
 // });
 
-// app.get('/api/products/:category', (req, res) => {
-//   const {category} = req.params;
-//   console.log(category);
-//  fs.readFile('./products.json','utf8',(err,data)=>{
-//      const products=JSON.parse(data);
-//      const productsByCategory = products.filter(product=>product.category === category)
-//      res.send(productsByCategory);
-//  })
+const initProducts = () => {
+  Product.findOne((err, product) => {
+    if (!product) {
+      fs.readFile("./products.json", "utf-8", (err, data) => {
+        const products = JSON.parse(data);
+        Product.insertMany(products, (err, resProducts) => {
+          // res.send(resProducts);
+        });
+      });
+    }
+  });
+};
 
 app.get("*", (req, res) => {
   res.sendFile(__dirname + "/client/build/index.html");
@@ -157,7 +134,10 @@ mongoose.connect(
   { useNewUrlParser: true, useUnifiedTopology: true },
   (err) => {
     app.listen(port, () => {
+      initProducts();
       console.log(`app listening on port ${port}`);
     });
   }
 );
+
+// `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`

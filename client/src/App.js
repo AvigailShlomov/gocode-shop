@@ -6,8 +6,6 @@ import ProductDetails from "./views/ProductDetails";
 
 function App() {
   const [productCart, setProductCart] = useState([]); //Global
-  const happy = true;
-  const mad = false;
   return (
     <Router>
       <MyContext.Provider value={[productCart, setProductCart]}>
