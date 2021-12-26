@@ -27,13 +27,14 @@ function Home() {
   }, []);
 
   const onFilterCategory = (categorySelected) => {
-    if (categorySelected === "All") setProductsCategory(productsDetails);
+    if (categorySelected.length === 0) setProductsCategory(productsDetails);
     else {
       setProductsCategory(
-        productsDetails.filter((x) => x.category === categorySelected)
+        productsDetails.filter((x) => categorySelected.includes(x.category))
       );
     }
   };
+
   const onFilterPrice = (minPrice, maxPrice) => {
     setProductsCategory(
       productsPrice.filter((x) => x.price >= minPrice && x.price <= maxPrice)

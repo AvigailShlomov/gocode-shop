@@ -1,43 +1,91 @@
 import "./header.css";
-import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
+import { useTheme } from "@mui/material/styles";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+function getStyles(category, categoriesList, theme) {
+  return {
+    fontWeight:
+      categoriesList.indexOf(category) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
 
 function valuetext(value) {
   return `${value}`;
 }
 
 function Header({ categoriesList, onCategory, onPrice }) {
-  const [value, setValue] = React.useState([1, 1000]);
+  const [value, setValue] = useState([1, 1000]);
+  const [categorySelected, setCategorySelected] = useState([]);
+  const theme = useTheme();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
-    console.log("kkkkkkk", newValue);
     onPrice(value[0], value[1]);
   };
-  console.log("jjjjjjjjjjjj", value[0], value[1]);
 
-  console.log({ categoriesList });
+  const handleChangeCategory = (event) => {
+    const value = event.target.value;
+    setCategorySelected(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
+    onCategory(value);
+  };
+
   return (
     <nav className="product-filter">
       <h1>Abi's Shop</h1>
-
       <div className="sort">
         <div className="collection-sort">
-          <label>Filter by:</label>
-          <select onChange={(e) => onCategory(e.target.value)}>
-            <option value="All">Select your category</option>
-            {categoriesList.map((value1, index) => (
-              <option value={value1} key={index}>
-                {value1}
-              </option>
-            ))}
-          </select>
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <InputLabel id="demo-multiple-name-label">Category</InputLabel>
+            <Select
+              labelId="demo-multiple-name-label"
+              id="demo-multiple-name"
+              multiple
+              value={categorySelected}
+              onChange={handleChangeCategory}
+              input={<OutlinedInput label="Category" />}
+              MenuProps={MenuProps}
+            >
+              {/* <option value="All">All</option> */}
+
+              {categoriesList.map((category, index) => (
+                <MenuItem
+                  key={index}
+                  value={category}
+                  style={getStyles(category, categoriesList, theme)}
+                >
+                  {category}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
 
         <Box sx={{ width: 120, margin: 2 }}>
           <Slider
-            getAriaLabel={() => "Temperature range"}
+            getAriaLabel={() => "Price range"}
             value={value}
             onChange={handleChange}
             valueLabelDisplay="auto"

@@ -89,9 +89,12 @@ app.patch("/api/products/:id", (req, res) => {
 });
 
 // Delete- DONE
-app.delete("/api/products/:id", (req, res) => {
+app.delete("/api/products/del/:id", (req, res) => {
+  console.log("check del 1");
   const { id } = req.params;
-  Product.findOneAndDelete(id, (err, product) => res.send(product));
+  console.log("check del 2");
+  Product.findOneAndDelete({ _id: id }, (err, product) => res.send(product));
+  console.log("check del 3");
 });
 
 // /*slider*/

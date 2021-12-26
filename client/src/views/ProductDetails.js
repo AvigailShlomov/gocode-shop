@@ -14,9 +14,6 @@ function ProductDetails() {
       });
   }, [_id]);
   return (
-    // <div>
-    //   Product details: ID: {id}, title: {product?.title} ,image:{product?.image}
-    // </div>
     <>
       <Product
         key={_id}

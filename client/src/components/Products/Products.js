@@ -1,7 +1,9 @@
 import Product from "../Product/Product";
 import "./Products.css";
+import * as React from "react";
 
 function Products({ listOBJ }) {
+  console.log(listOBJ);
   return (
     <section className="products">
       {listOBJ.map((item) => (

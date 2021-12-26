@@ -19,18 +19,6 @@ function Cart() {
         />
       ))}
     </div>
-    // <section className="products">
-    //   {productCart.map((item) => (
-    //     <Product
-    //       key={item.id}
-    //       id={item.id}
-    //       title={item.title}
-    //       price={item.price}
-    //       image={item.image}
-    //       category={item.category}
-    //     />
-    //   ))}
-    // </section>
   );
 }
 

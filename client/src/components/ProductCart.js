@@ -21,7 +21,3 @@ function ProductCart({ key, id, image, title, price, category, amount }) {
 }
 
 export default ProductCart;
-
-// // let amount = productCart.filter(function (e) {
-// //     return e.Name === "Magenic";
-// //   }).length;
