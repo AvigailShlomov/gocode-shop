@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import MyContext from "./MyContext";
 import Home from "./views/Home";
-import ProductDetails from "./views/ProductDetails";
+import ProductCard from "./views/ProductCard";
 
 function App() {
   const [productCart, setProductCart] = useState([]); //Global
@@ -15,15 +15,15 @@ function App() {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to="/Products">Products</Link>
-              </li>
+              </li> */}
             </ul>
           </nav>
 
           <Switch>
             <Route path="/Products/:id">
-              <ProductDetails />
+              <ProductCard />
             </Route>
             <Route path="/">
               <Home />

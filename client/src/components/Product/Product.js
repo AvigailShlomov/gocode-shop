@@ -1,7 +1,11 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import MyContext from "../../MyContext";
-// import ProductCart from "../ProductCart";
 import "./Product.css";
+import {
+  getProductAmount,
+  deleteProductFromCart,
+  addProductToCart,
+} from "../../utils/productFunctionalityUtils";
 import { Link } from "react-router-dom";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -14,100 +18,73 @@ function Product({ key, id, title, price, category, image }) {
   // const [amount, setAmount] = useState(0);
   // const [quantity, setQuantity] = useState(0);
 
-  let getProductAmount = () => {
-    let product = productCart.find((prdt) => prdt.id === id);
-    if (product) {
-      return product.amount;
-    }
-    return 0;
-  };
-
-  let newProduct = "";
-  function addProductToCart() {
-    let amount = 1;
-    const found = productCart.find((el) => el.id === id);
-    if (found) {
-      console.log("got here");
-      setProductCart(
-        productCart.map((product) =>
-          product.id === id
-            ? { ...product, amount: product.amount + 1 }
-            : product
-        )
-      );
-    } else {
-      newProduct = {
-        key: id,
-        id,
-        image,
-        title,
-        price,
-        category,
-        amount,
-      };
-      setProductCart([...productCart, newProduct]);
-    }
-
-    return;
-  }
-
-  function deleteProduct(product) {
-    if (product.id === id) return { ...product, amount: product.amount - 1 };
-    else return product;
-  }
-  function deleteProductFromCart() {
-    productCart.forEach((product) => {
-      if (product.id === id) {
-        if (product.amount === 1) {
-          setProductCart(productCart.filter((x) => x.id !== id));
-        } else {
-          setProductCart(productCart.map(deleteProduct));
-        }
-      }
-    });
-    return;
-  }
-
   return (
     //<div className="product-card">
-    <Card sx={{ width: 250, hight: 5, margin: 1, padding: 1 }}>
-      <CardActionArea>
-        <Link to={`/Products/${id}`}>
-          <CardMedia
-            component="img"
-            mergin-top="10"
-            height="230"
-            image={image}
-            alt={title}
-          />
-        </Link>
-        <CardContent>
+    <Card sx={{ width: 250, margin: 1, padding: 1 }}>
+      <CardActionArea
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "column",
+          height: "100%",
+        }}
+      >
+        <div>
           <Link to={`/Products/${id}`}>
-            <Typography gutterBottom variant="h5" component="div">
-              {title}
-            </Typography>
+            <CardMedia
+              component="img"
+              mergin-top="10"
+              height="auto"
+              max-width="100% "
+              image={image}
+              alt={title}
+            />
           </Link>
+          <CardContent>
+            <Link to={`/Products/${id}`}>
+              <Typography gutterBottom variant="h5" component="div">
+                {title}
+              </Typography>
+            </Link>
 
-          <Typography variant="body2" color="text.secondary">
-            {category}
-          </Typography>
-          <Typography gutterBottom variant="h6" component="div">
-            {price} $
-          </Typography>
-        </CardContent>
-        <ButtonGroup disableElevation variant="contained">
+            <Typography variant="body2" color="text.secondary">
+              {category}
+            </Typography>
+            <Typography gutterBottom variant="h6" component="div">
+              {price} $
+            </Typography>
+          </CardContent>
+        </div>
+        <ButtonGroup
+          disableElevation
+          variant="contained"
+          style={{ display: "flex justify-content space-between" }}
+        >
           <div>
             <Button
               color="success"
               onClick={() => {
-                addProductToCart();
+                addProductToCart(
+                  productCart,
+                  setProductCart,
+                  id,
+                  image,
+                  title,
+                  price,
+                  category
+                );
               }}
             >
               {" "}
               +{" "}
             </Button>
-            <span>{getProductAmount()}</span>
-            <Button color="primary" onClick={() => deleteProductFromCart()}>
+            <span>{getProductAmount(productCart, id)}</span>
+            <Button
+              color="primary"
+              onClick={() =>
+                deleteProductFromCart(productCart, setProductCart, id)
+              }
+            >
               {" "}
               -{" "}
             </Button>
