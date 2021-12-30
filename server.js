@@ -23,7 +23,6 @@ const Product = mongoose.model("Product", productSchema); //class-collection
 /*get/show all products- DONE 1*/
 app.get("/api/products", function (req, res) {
   const { title } = req.query;
-  console.log(title);
   Product.find((err, products) => {
     if (title) {
       products = products.filter((product) =>
@@ -54,7 +53,6 @@ app.get("/api/products/:category", (req, res) => {
 
 //add new product DONE 3
 app.post("/api/products/addProduct", (req, res) => {
-  console.log("hi post");
   const { title, price, description, category, image } = req.body;
   const product = new Product({
     title,
@@ -90,11 +88,8 @@ app.patch("/api/products/:id", (req, res) => {
 
 // Delete- DONE
 app.delete("/api/products/del/:id", (req, res) => {
-  console.log("check del 1");
   const { id } = req.params;
-  console.log("check del 2");
   Product.findOneAndDelete({ _id: id }, (err, product) => res.send(product));
-  console.log("check del 3");
 });
 
 // /*slider*/

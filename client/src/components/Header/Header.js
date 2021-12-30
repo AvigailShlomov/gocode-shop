@@ -55,49 +55,52 @@ function Header({ categoriesList, onCategory, onPrice }) {
   return (
     <nav className="product-filter">
       <h1>Abi's Shop</h1>
-      <div className="sort">
-        {/* <div className="collection-sort"> */}
-        <FormControl sx={{ m: 1, width: 300 }}>
-          <InputLabel id="demo-multiple-name-label">Category</InputLabel>
-          <Select
-            labelId="demo-multiple-name-label"
-            id="demo-multiple-name"
-            multiple
-            value={categorySelected}
-            onChange={handleChangeCategory}
-            input={<OutlinedInput label="Category" />}
-            MenuProps={MenuProps}
-          >
-            {/* <option value="All">All</option> */}
 
-            {categoriesList.map((category, index) => (
-              <MenuItem
-                key={index}
-                value={category}
-                style={getStyles(category, categoriesList, theme)}
-              >
-                {category}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        {/* </div> */}
+      <Box sx={{ width: 230, margin: 2 }}>
+        <h6>Price Range</h6>
+        <Slider
+          getAriaLabel={() => "Price range"}
+          value={value}
+          onChange={handleChange}
+          valueLabelDisplay="auto"
+          getAriaValueText={valuetext}
+          min={0}
+          max={1000}
+        />
+        <h6>
+          {value[0]}-{value[1]}
+        </h6>
+      </Box>
 
-        <Box sx={{ width: 120, margin: 2 }}>
-          <h6>Price Range</h6>
-          <Slider
-            getAriaLabel={() => "Price range"}
-            value={value}
-            onChange={handleChange}
-            valueLabelDisplay="auto"
-            getAriaValueText={valuetext}
-            min={0}
-            max={1000}
-          />
-        </Box>
+      {/* <div className="collection-sort"> */}
+      <FormControl sx={{ m: 2, width: 250 }}>
+        <InputLabel id="demo-multiple-name-label">Category</InputLabel>
+        <Select
+          labelId="demo-multiple-name-label"
+          id="demo-multiple-name"
+          multiple
+          value={categorySelected}
+          onChange={handleChangeCategory}
+          input={<OutlinedInput label="Category" />}
+          MenuProps={MenuProps}
+        >
+          {/* <option value="All">All</option> */}
 
-        <div className="collection-sort">
-          <label>Sort by:</label>
+          {categoriesList.map((category, index) => (
+            <MenuItem
+              key={index}
+              value={category}
+              style={getStyles(category, categoriesList, theme)}
+            >
+              {category}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      {/* </div> */}
+
+      {/* <div className="collection-sort"> */}
+      {/* <label>Sort by:</label>
           <select>
             <option value="/">Featured</option>
             <option value="/">Best Selling</option>
@@ -108,8 +111,7 @@ function Header({ categoriesList, onCategory, onPrice }) {
             <option value="/">Date, new to old</option>
             <option value="/">Date, old to new</option>
           </select>
-        </div>
-      </div>
+        </div> */}
     </nav>
   );
 }

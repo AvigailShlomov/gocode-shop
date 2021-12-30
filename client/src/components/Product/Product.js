@@ -35,6 +35,7 @@ function Product({ key, id, title, price, category, image }) {
               component="img"
               mergin-top="10"
               height="auto"
+              width="auto"
               max-width="100% "
               image={image}
               alt={title}

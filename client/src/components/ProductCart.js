@@ -1,7 +1,3 @@
-// import { useContext } from "react";
-// import MyContext from "../../MyContext";
-// import "./Product.css";
-
 function ProductCart({ key, id, image, title, price, category, amount }) {
   //   const [productCart, setProductCart] = useContext(MyContext);
 

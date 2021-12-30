@@ -21,6 +21,7 @@
     "express": "^4.17.1",
     "mongoose": "^6.0.12",
     "nodemon": "^2.0.14",
+    "react-grid-system": "^8.0.1",
     "styled-components": "^5.3.3"
   },
   "devDependencies": {
