@@ -81,7 +81,7 @@ function Product({ key, id, title, price, category, image }) {
             </Button>
             <span>{getProductAmount(productCart, id)}</span>
             <Button
-              color="primary"
+              // color="primary"
               onClick={() =>
                 deleteProductFromCart(productCart, setProductCart, id)
               }

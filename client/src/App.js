@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Admin from "./Admin/Admin";
 import MyContext from "./MyContext";
 import Home from "./views/Home";
 import ProductCard from "./views/ProductCard";
@@ -15,13 +16,17 @@ function App() {
               <li>
                 <Link to="/">Home</Link>
               </li>
-              {/* <li>
-                <Link to="/Cart"></Link>
-              </li> */}
+
+              <li>
+                <Link to="/Admin">Admin</Link>
+              </li>
             </ul>
           </nav>
 
           <Switch>
+            <Route path="/Admin">
+              <Admin />
+            </Route>
             <Route path="/Products/:id">
               <ProductCard />
             </Route>

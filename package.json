@@ -17,6 +17,7 @@
     "@emotion/styled": "^11.6.0",
     "@mui/material": "^5.2.4",
     "@mui/styled-engine-sc": "^5.1.0",
+    "@mui/x-data-grid-generator": "^5.2.2",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongoose": "^6.0.12",

@@ -53,7 +53,10 @@ app.get("/api/products/:category", (req, res) => {
 
 //add new product DONE 3
 app.post("/api/products/addProduct", (req, res) => {
-  const { title, price, description, category, image } = req.body;
+  const { addProductData } = req.body;
+  // console.log(req.body)
+  //console.log()
+  const { title, price, description, category, image } = addProductData;
   const product = new Product({
     title,
     price,
@@ -62,13 +65,8 @@ app.post("/api/products/addProduct", (req, res) => {
     image,
   });
   console.log("kok");
-  product.save(
-    { title, price, description, category, image },
-    (err, product) => {
-      console.log(err);
-      res.send(product);
-    }
-  );
+  product.save();
+  res.send(product);
 });
 
 //change DONE
@@ -79,7 +77,7 @@ app.patch("/api/products/:id", (req, res) => {
   Product.findByIdAndUpdate(
     id,
     { title, price, category, description, image },
-    { new: true },
+    { new: true } /*to return the doc after update*/,
     (err, product) => {
       res.send(product);
     }
