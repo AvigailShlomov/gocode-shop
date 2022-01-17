@@ -32,14 +32,20 @@ export default function Admin() {
         return res.json();
       })
       .then((products) => {
-        const newProducts = products.map(({ _id: id, ...rest }) => ({
+        let newProducts = products.map(({ _id: id, ...rest }) => ({
           id,
           ...rest,
         }));
+        newProducts = newProducts.map((product) => ({
+          ...product,
+          editOnClick: () => {
+            console.log(product.id, "ho");
+          },
+        }));
+
         setRows(newProducts);
       });
   }, []);
-  console.log(rows);
 
   const handleAddFormChange = (event) => {
     event.preventDefault();
@@ -178,13 +184,13 @@ const columns = [
     width: 350,
     editable: true,
   },
-  // {
-  //   field: "action",
-  //   headerName: "Action",
-  //   type: "string",
-  //   width: 350,
-  //   editable: true,
-  // },
+  {
+    field: "action",
+    headerName: "Action",
+    type: "string",
+    width: 350,
+    editable: true,
+  },
 ];
 
 // const rows = [
