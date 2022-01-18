@@ -4,7 +4,7 @@ import Read from "../../components/Read/Read";
 // import ReadOnlyRow from "../../components/Read/Read";
 import "./admin.css";
 
-const Admin1 = () => {
+const Admin = () => {
   const [products, setProducts] = useState([]);
   const [addProductData, setAddProductData] = useState({
     title: "",
@@ -52,7 +52,8 @@ const Admin1 = () => {
     setAddProductData(newProductData);
   };
 
-  const handleAddProduct = () => {
+  const handleAddProduct = (event) => {
+    event.preventDefault();
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -172,7 +173,7 @@ const Admin1 = () => {
       </form>
 
       <h2>Add A Product:</h2>
-      <form onSubmit={handleAddProduct}>
+      <form onSubmit={(event) => handleAddProduct(event)}>
         <input
           type="text"
           name="title"
@@ -214,4 +215,4 @@ const Admin1 = () => {
   );
 };
 
-export default Admin1;
+export default Admin;
