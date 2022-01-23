@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import MyContext from "../../MyContext";
-import ProductCart from "../ProductCart";
+import ProductCart from "../ProductCart/ProductCart";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
@@ -67,8 +67,8 @@ function Cart() {
         {/* {productCart.length > 0 && <h1>Your cart is Empty</h1>} */}
         {productCart.map((item) => (
           <ProductCart
-            key={item._id}
-            id={item._id}
+            key={item.id}
+            id={item.id}
             title={item.title}
             price={item.price}
             image={item.image}

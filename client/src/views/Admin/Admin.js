@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useState } from "react";
 import EditableRow from "../../components/EditableRow/EditableRow";
-import Read from "../../components/Read/Read";
-// import ReadOnlyRow from "../../components/Read/Read";
+import ReadOnlyRow from "../../components/ReadOnlyRow/ReadOnlyRow";
 import "./admin.css";
 
 const Admin = () => {
@@ -118,7 +117,6 @@ const Admin = () => {
       phoneNumber: contact.phoneNumber,
       email: contact.email,
     };
-
     setEditFormData(formValues);
   };
 
@@ -160,7 +158,7 @@ const Admin = () => {
                     handleCancelClick={handleCancelClick}
                   />
                 ) : (
-                  <Read
+                  <ReadOnlyRow
                     product={product}
                     handleEditClick={handleEditClick}
                     //handleDeleteClick={handleDeleteClick}

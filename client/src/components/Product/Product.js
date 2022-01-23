@@ -11,7 +11,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
-import { Button, CardActionArea, ButtonGroup } from "@mui/material";
+import { Button, CardActionArea } from "@mui/material";
 
 function Product({ key, id, title, price, category, image }) {
   const [productCart, setProductCart] = useContext(MyContext);
@@ -56,41 +56,41 @@ function Product({ key, id, title, price, category, image }) {
             </Typography>
           </CardContent>
         </div>
-        <ButtonGroup
+        {/* <ButtonGroup
           disableElevation
           variant="contained"
           style={{ display: "flex justify-content space-between" }}
-        >
-          <div>
-            <Button
-              color="success"
-              onClick={() => {
-                addProductToCart(
-                  productCart,
-                  setProductCart,
-                  id,
-                  image,
-                  title,
-                  price,
-                  category
-                );
-              }}
-            >
-              {" "}
-              +{" "}
-            </Button>
-            <span>{getProductAmount(productCart, id)}</span>
-            <Button
-              // color="primary"
-              onClick={() =>
-                deleteProductFromCart(productCart, setProductCart, id)
-              }
-            >
-              {" "}
-              -{" "}
-            </Button>
-          </div>
-        </ButtonGroup>
+        > */}
+        <div style={{ display: "flex justify-content space-between" }}>
+          <Button
+            color="success"
+            onClick={() => {
+              addProductToCart(
+                productCart,
+                setProductCart,
+                id,
+                image,
+                title,
+                price,
+                category
+              );
+            }}
+          >
+            {" "}
+            +{" "}
+          </Button>
+          <span>{getProductAmount(productCart, id)}</span>
+          <Button
+            // color="primary"
+            onClick={() =>
+              deleteProductFromCart(productCart, setProductCart, id)
+            }
+          >
+            {" "}
+            -{" "}
+          </Button>
+        </div>
+        {/* </ButtonGroup> */}
       </CardActionArea>
     </Card>
 

@@ -22,7 +22,7 @@ export function addProductToCart(
   let amount = 1;
   const found = productCart.find((el) => el.id === id);
   if (found) {
-    console.log("got here");
+    console.log("got here", productCart);
     setProductCart(
       productCart.map((product) =>
         product.id === id ? { ...product, amount: product.amount + 1 } : product

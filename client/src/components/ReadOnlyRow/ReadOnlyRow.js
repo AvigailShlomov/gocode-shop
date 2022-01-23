@@ -1,6 +1,6 @@
 import React from "react";
 
-const Read = ({ product, handleEditClick /*, handleDeleteClick */ }) => {
+const ReadOnlyRow = ({ product, handleEditClick /*, handleDeleteClick */ }) => {
   return (
     <tr>
       <td>{product.title}</td>
@@ -25,4 +25,4 @@ const Read = ({ product, handleEditClick /*, handleDeleteClick */ }) => {
   );
 };
 
-export default Read;
+export default ReadOnlyRow;
