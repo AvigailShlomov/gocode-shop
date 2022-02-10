@@ -1,4 +1,7 @@
 import React from "react";
+import IconButton from "@mui/material/IconButton";
+import SaveIcon from "@mui/icons-material/Save";
+import CancelIcon from "@mui/icons-material/Cancel";
 
 const EditableRow = ({
   editFormData,
@@ -11,9 +14,9 @@ const EditableRow = ({
         <input
           type="text"
           required="required"
-          placeholder="Enter a name..."
-          name="fullName"
-          value={editFormData.fullName}
+          placeholder="Enter a title..."
+          name="title"
+          value={editFormData.title}
           onChange={handleEditFormChange}
         ></input>
       </td>
@@ -21,9 +24,9 @@ const EditableRow = ({
         <input
           type="text"
           required="required"
-          placeholder="Enter an address..."
-          name="address"
-          value={editFormData.address}
+          placeholder="Enter a price..."
+          name="price"
+          value={editFormData.price}
           onChange={handleEditFormChange}
         ></input>
       </td>
@@ -31,27 +34,40 @@ const EditableRow = ({
         <input
           type="text"
           required="required"
-          placeholder="Enter a phone number..."
-          name="phoneNumber"
-          value={editFormData.phoneNumber}
+          placeholder="Enter a description..."
+          name="description"
+          value={editFormData.description}
           onChange={handleEditFormChange}
         ></input>
       </td>
       <td>
         <input
-          type="email"
+          type="text"
           required="required"
-          placeholder="Enter an email..."
-          name="email"
-          value={editFormData.email}
+          placeholder="Enter a categoty..."
+          name="category"
+          value={editFormData.category}
           onChange={handleEditFormChange}
         ></input>
       </td>
       <td>
-        <button type="submit">Save</button>
-        <button type="button" onClick={handleCancelClick}>
-          Cancel
-        </button>
+        <input
+          type="text"
+          required="required"
+          placeholder="Enter an Image URL..."
+          name="image"
+          value={editFormData.image}
+          onChange={handleEditFormChange}
+        ></input>
+      </td>
+      <td>
+        <IconButton type="submit">
+          <SaveIcon />
+        </IconButton>
+
+        <IconButton type="button" onClick={handleCancelClick}>
+          <CancelIcon />
+        </IconButton>
       </td>
     </tr>
   );

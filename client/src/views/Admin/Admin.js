@@ -5,6 +5,8 @@ import "./admin.css";
 
 const Admin = () => {
   const [products, setProducts] = useState([]);
+  const [editProductId, setEditProductId] = useState(null);
+  ////////////////////////////////ADD////////////////////////////////////
   const [addProductData, setAddProductData] = useState({
     title: "",
     price: "",
@@ -20,7 +22,7 @@ const Admin = () => {
     description: "",
     image: "",
   });
-
+  //GET
   useEffect(() => {
     fetch("/api/products")
       .then((res) => {
@@ -31,15 +33,10 @@ const Admin = () => {
           id,
           ...rest,
         }));
-        // newProducts = newProducts.map((product) => ({
-        //   ...product,
-        //   editOnClick: () => {
-        //     console.log(product.id, "ho");
-        //   },
-        // }));
         setProducts(newProducts);
       });
   }, []);
+
   const handleAddFormChange = (event) => {
     event.preventDefault();
 
@@ -50,7 +47,7 @@ const Admin = () => {
     newProductData[fieldName] = fieldValue;
     setAddProductData(newProductData);
   };
-
+  //POST
   const handleAddProduct = (event) => {
     event.preventDefault();
     const requestOptions = {
@@ -67,12 +64,10 @@ const Admin = () => {
           id: _id,
           ...rest,
         }));
-        setProducts([...newProducts, ...products]);
+        setProducts([...products, ...newProducts]);
       });
   };
-
-  const [editContactId, setEditContactId] = useState(null);
-  const [editProductId, setEditProfuctId] = useState(null);
+  ////////////////////////EDIT/////////////////////////////////////////////
 
   const handleEditFormChange = (event) => {
     event.preventDefault();
@@ -89,50 +84,75 @@ const Admin = () => {
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
 
-    const editedContact = {
-      id: editContactId,
-      fullName: editFormData.fullName,
-      address: editFormData.address,
-      phoneNumber: editFormData.phoneNumber,
-      email: editFormData.email,
+    const editedProduct = {
+      id: editProductId,
+      title: editFormData.title,
+      price: editFormData.price,
+      category: editFormData.category,
+      description: editFormData.description,
+      image: editFormData.image,
     };
 
-    const newContacts = [...products];
+    const newProducts = [...products];
+    const index = products.findIndex((product) => product.id === editProductId); //to get the changed position
+    newProducts[index] = editedProduct;
+    setProducts(newProducts);
+    // console.log("update", newProducts);
+    // console.log("what we gonna update", editedProduct);
+    // console.log("id", editProductId);
 
-    const index = products.findIndex((contact) => contact.id === editContactId);
+    fetch(`/api/products/edit/${editProductId}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        title: editedProduct?.title,
+        price: editedProduct?.price,
+        category: editedProduct?.category,
+        description: editedProduct?.description,
+        image: editedProduct?.image,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => console.log("json", json))
+      .catch((err) => console.log("error: ", err));
 
-    newContacts[index] = editedContact;
-
-    setProducts(newContacts);
-    setEditContactId(null);
+    setEditProductId(null);
   };
-
-  const handleEditClick = (event, contact) => {
+  //EDIT BTN
+  const handleEditClick = (event, product) => {
     event.preventDefault();
-    setEditContactId(contact.id);
-
+    setEditProductId(product.id);
     const formValues = {
-      fullName: contact.fullName,
-      address: contact.address,
-      phoneNumber: contact.phoneNumber,
-      email: contact.email,
+      title: product.title,
+      price: product.price,
+      category: product.category,
+      description: product.description,
+      image: product.image,
     };
     setEditFormData(formValues);
   };
-
+  //edit-cancel
   const handleCancelClick = () => {
-    setEditContactId(null);
+    setEditProductId(null);
   };
-
-  // const handleDeleteClick = (contactId) => {
-  //   const newContacts = [...products];
-
-  //   const index = products.findIndex((contact) => contact.id === contactId);
-
-  //   newContacts.splice(index, 1);
-
-  //   setProducts(newContacts);
-  // };
+  //del btn
+  const handleDeleteClick = (productId) => {
+    console.log("hi got to del");
+    const filteredProducts = products.filter((pro) => pro.id !== productId);
+    setProducts(filteredProducts);
+    fetch(`/api/products/del/${productId}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) =>
+        // this is the data we get afte deletting
+        console.log(data)
+      );
+  };
 
   return (
     <div className="app-container">
@@ -150,8 +170,8 @@ const Admin = () => {
           </thead>
           <tbody>
             {products.map((product) => (
-              <Fragment>
-                {editContactId === product.id ? (
+              <Fragment key={product.id}>
+                {editProductId === product.id ? (
                   <EditableRow
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}
@@ -161,7 +181,7 @@ const Admin = () => {
                   <ReadOnlyRow
                     product={product}
                     handleEditClick={handleEditClick}
-                    //handleDeleteClick={handleDeleteClick}
+                    handleDeleteClick={handleDeleteClick}
                   />
                 )}
               </Fragment>

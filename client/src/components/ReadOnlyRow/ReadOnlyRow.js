@@ -1,6 +1,9 @@
 import React from "react";
+import IconButton from "@mui/material/IconButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import EditIcon from "@mui/icons-material/Edit";
 
-const ReadOnlyRow = ({ product, handleEditClick /*, handleDeleteClick */ }) => {
+const ReadOnlyRow = ({ product, handleEditClick, handleDeleteClick }) => {
   return (
     <tr>
       <td>{product.title}</td>
@@ -11,15 +14,20 @@ const ReadOnlyRow = ({ product, handleEditClick /*, handleDeleteClick */ }) => {
       <td>{product.image}</td>
 
       <td>
-        <button
+        <IconButton
           type="button"
           onClick={(event) => handleEditClick(event, product)}
         >
-          Edit
-        </button>
-        {/* <button type="button" onClick={() => handleDeleteClick(products.id)}>
-          Delete
-        </button> */}
+          <EditIcon />
+        </IconButton>
+
+        <IconButton
+          aria-label="delete"
+          type="button"
+          onClick={() => handleDeleteClick(product.id)}
+        >
+          <DeleteIcon />
+        </IconButton>
       </td>
     </tr>
   );

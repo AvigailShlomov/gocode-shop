@@ -70,9 +70,18 @@ app.post("/api/products/addProduct", (req, res) => {
 });
 
 //change DONE
-app.patch("/api/products/:id", (req, res) => {
+app.patch("/api/products/edit/:id", (req, res) => {
+  console.log("got to update");
   const { id } = req.params;
-  const { title, price, category, description, image } = req.body;
+  const {
+    title: title,
+    price: price,
+    category: category,
+    description: description,
+    image: image,
+  } = req.body;
+  console.log(" update id", id);
+  console.log(price);
 
   Product.findByIdAndUpdate(
     id,
