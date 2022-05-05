@@ -2,6 +2,8 @@ import React from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+// import "../../views/Admin/admin.css";
+// import "./readOnlyRow.css";
 
 const ReadOnlyRow = ({ product, handleEditClick, handleDeleteClick }) => {
   return (
@@ -10,7 +12,6 @@ const ReadOnlyRow = ({ product, handleEditClick, handleDeleteClick }) => {
       <td>{product.price}</td>
       <td>{product.description}</td>
       <td>{product.category}</td>
-
       <td>{product.image}</td>
 
       <td>
@@ -18,7 +19,7 @@ const ReadOnlyRow = ({ product, handleEditClick, handleDeleteClick }) => {
           type="button"
           onClick={(event) => handleEditClick(event, product)}
         >
-          <EditIcon />
+          <EditIcon style={{ display: "flex", justifyContent: "center" }} />
         </IconButton>
 
         <IconButton

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import LogIn from "./LogIn";
 // import Admin from "./views/Admin";
 import MyContext from "./MyContext";
 import Admin from "./views/Admin/Admin";
@@ -22,6 +23,9 @@ function App() {
               <li>
                 <Link to="/Admin">Admin</Link>
               </li>
+              <li>
+                <Link to="/LogIn">LogIn</Link>
+              </li>
             </ul>
           </nav>
 
@@ -34,6 +38,9 @@ function App() {
             </Route>
             <Route path="/">
               <Home />
+            </Route>
+            <Route path="/LogIn">
+              <LogIn />
             </Route>
           </Switch>
         </div>

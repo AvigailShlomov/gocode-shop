@@ -38,12 +38,15 @@ function Cart() {
     setState({ ...state, [anchor]: open });
   };
 
+  function roundToTwo(num) {
+    return +(Math.round(num + "e+2") + "e-2");
+  }
   let finalPrice = 0;
   function totalPrice() {
     productCart.map(
       (item) => (finalPrice = finalPrice + item.amount * item.price)
     );
-    return finalPrice;
+    return roundToTwo(finalPrice);
   }
   // let len = typeof productCart.lenght === "undefined" ? 0 : productCart.lenght;
   // console.log("len", cartLenght);

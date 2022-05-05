@@ -1,35 +1,54 @@
-.app-container {
+.content-table {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 1rem;
 }
-
-table {
-  border-collapse: collapse;
-  width: 100%;
+.content-table thead tr {
+  background-color: rgb(9, 114, 175);
+  text-align: left;
+  font-weight: bold;
+}
+.content-table tbody tr.active-row {
+  font-weight: bold;
+  color: rgb(9, 114, 175);
+}
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+  border: 1px solid #ffffff;
+  text-align: center;
+  vertical-align: middle;
 }
 
-th,
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+/* table {
+  border-collapse: collapse;
+  width: 100%;
+} */
+
+/* th,
 td {
   border: 1px solid #ffffff;
   text-align: left;
   padding: 4px;
-  font-size: 10px;
-}
-
-th {
-  background-color: rgb(117, 201, 250);
-}
+  
+} */
 
 td {
   background-color: rgb(205, 235, 253);
 }
 
-form {
+/* form {
   display: flex;
   gap: 5px;
-}
+} */
 
 form td:last-child {
   display: flex;
@@ -39,3 +58,53 @@ form td:last-child {
 form * {
   font-size: 13px;
 }
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid rgb(9, 114, 175);
+}
+.content-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}
+
+* {
+  font-family: sans-serif; /* Change your font family */
+}
+/*
+.content-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  min-width: 400px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.content-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+} */

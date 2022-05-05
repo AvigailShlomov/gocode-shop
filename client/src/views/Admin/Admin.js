@@ -155,7 +155,7 @@ const Admin = () => {
   };
 
   return (
-    <div className="app-container">
+    <div className="content-table">
       <form onSubmit={handleEditFormSubmit}>
         <table>
           <thead>

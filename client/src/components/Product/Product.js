@@ -56,11 +56,7 @@ function Product({ key, id, title, price, category, image }) {
             </Typography>
           </CardContent>
         </div>
-        {/* <ButtonGroup
-          disableElevation
-          variant="contained"
-          style={{ display: "flex justify-content space-between" }}
-        > */}
+
         <div style={{ display: "flex justify-content space-between" }}>
           <Button
             color="success"
@@ -93,20 +89,6 @@ function Product({ key, id, title, price, category, image }) {
         {/* </ButtonGroup> */}
       </CardActionArea>
     </Card>
-
-    // {/* <Link to={`/Products/${id}`}>
-    //   <div className="product-image">
-    //     <img src={image} alt={title} />
-    //     <div className="product-info">
-    //       <h5>{title}</h5>
-    //     </div>
-    //   </div>
-    // </Link>
-    // <div className="product-info">
-    //   <h6>{category}</h6>
-    //   <h6>{price}$</h6>
-    // </div> */}
-    // </div>
   );
 }
 
